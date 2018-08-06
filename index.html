@@ -1,0 +1,66 @@
+<html>
+<head></head>
+<body>
+
+<h1>Bitcoin Post-Quantum</h1>
+
+
+
+<h3>BPQ source code</h3>
+
+The source code may be found <a href="https://github.com/bitcoinpostquantum/bpq" target="_blank">here</a><br><br>
+
+How to start full node with Docker (<a href="https://docs.docker.com/install/" target="_blank">install Docker</a>) in few clicks:<br><br> 
+
+<ol>
+<li>Clone github repo
+<br>
+<code>
+git clone https://github.com/bitcoinpostquantum/docker-bpq.git
+</code><br><br>
+</li>
+<li>Start docker file
+<br>
+<code>cd docker-bpq</code><br>
+<code>./create</code><br><br>
+</li>
+<li>Start demon
+<br>
+<code>./run_as_interactive</code><br>
+<code>bpqd -printtoconsole -testnet=1</code><br><br><br>
+</li>
+<li>To get to bpq-cli open new console window and <br><br>
+<code>sudo docker ps</code><br><br>
+you'll see container handle which you need to use in next command:<br><br>
+<code>sudo docker exec -it ContainerHandle /bin/bash</code><br><br>
+
+<code>bpq-cli -testnet=1 getblockcount</code><br><br>
+
+</li>
+</ol><br>
+
+Once you wish to srop container run:<br><br>
+
+<code>sudo docker stop ContainerHandle</code><br><br>
+
+
+Docker file may be found in this <a href="https://github.com/bitcoinpostquantum/docker-bpq" target="_blank">repo</a><br><br>
+
+
+
+<h3>Electrum Light wallet</h3> 
+
+Get Electrum wallet source code & run instructions <a href="https://github.com/bitcoinpostquantum/electrum-bpq" target="_blank">here</a><br><br>
+
+ElectrumX server source code <a href="https://github.com/bitcoinpostquantum/electrumx-bpq" target="_blank">repo</a><br><br>
+
+<h3>Mining</h3>
+
+Miner source code and run instructions <a href="https://github.com/bitcoinpostquantum/nheqminer" target="_blank">here</a><br><br>
+
+<h3>BPQ Crypto lib</h3>
+
+bpqcrypto lib source code is <a href="https://github.com/bitcoinpostquantum/bpqcrypto" target="_blank">here</a><br><br>
+
+</body>
+</html>

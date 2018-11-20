@@ -2,19 +2,78 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Bitcoin Post-Quantum</title>
+  <title>Bitcoin Post-Quantum Guidelines</title>
+  <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
 </head>
 <body>
 
-<h1>Bitcoin Post-Quantum</h1>
+<h1>Bitcoin Post-Quantum Guidelines</h1>
+
+<p>This guidelines is work in progress. <br>
+Pls, participate by creating issues in related <a href="https://github.com/bitcoinpq/bitcoinpq.github.io" target="_blank">GitHub repo</a> and submit pull requests - it'll be greatly appreciated! </p>
+
+<h2>Contents</h2>
+<ol>
+  <li><a href="#differences">BPQ key differences</a></li>
+  <li><a href="#wallet">Light wallet setup</a></li>
+  <li><a href="#airdrop">Claim your BPQ - get same amount of BPQ as you have in Bitcoin network (airdrop)</a></li>
+  <li><a href="#node">Full node setup</a></li>
+  <li><a href="#docker">Full node setup with Docker</a></li>
+  <li><a href="#miner">Miner setup</a></li>
+  <li><a href="#pool">Connect miner to the pool</a></li>
+  <li><a href="#ElectrumX">ElectrumX server setup</a></li>
+  <li><a href="#bpqcrypto">BPQ Crypto lib for developers</a></li>
+</ol>
+
+<h3 id="differences"><u>BPQ key differences</u></h3>
+<p>Bitcoin Post-Quantum is a bit different than Bitcoin.</P>
+<ul>
+  <li><i>Single address</i>
+    <p>
+      Instead of multiple addresses, the best practice is to reuse a single address.
+    </p>
+    <p>
+      So in most cases change going to be returned to the same address you issued the transaction from.
+    </p>
+    <p>
+      However you are able to provide different change address (just any address in BPQ network - not necessary available in your wallet or yours in general)
+    </p>
+  </li>
+  <li><i>Limited number of signatures</i>
+    <p>
+      In contrast with Bitcoin the address can be used a limited number of times (from a thousand to a million, depending on the chosen height of the Merkle tree).
+    <p>
+    </p>
+      Electrum wallet or BPQ QT client will warn you once you have used most of the signatures and when you have number of signatures left enough only to securely transfer the balance to the new BPQ address.
+    <p>
+    </p>
+      When creating the address you may select between 3 key levels (10,16 and 20) for 1.000+,65.000+ and 1.000.000+ signatures respectfully.
+    <p>
+    </p>
+      Time to generate this keys is different - from seconds to dozens of minutes and also related to computation power your computer has.      
+    </p>
+  </li>
+</ul>
 
 
+<h3 id="wallet"><u>Light wallet setup</u></h3>
+<p>
+  Get Electrum wallet source code & run instructions <a href="https://github.com/bitcoinpostquantum/electrum-bpq" target="_blank">here</a><br><br>
+</p>
 
-<h3>BPQ source code</h3>
+<h3 id="airdrop"><u>Claim your BPQ - get same amount of BPQ as you have in Bitcoin network (airdrop)</u></h3>
+<p>
+  <b><font color="red">Before starting, transfer your BTC balance to another address in Bitcoin network. Transaction must occur after the block #553000. Now you save to use your previous Bitcoin address private key in BPQ network.</font></b>
+</p>
 
-The source code may be found <a href="https://github.com/bitcoinpostquantum/bpq" target="_blank">here</a><br><br>
+<h3 id="node"><u>Full node setup</u></h3>
+<p>
+  BPQ source code may be found <a href="https://github.com/bitcoinpostquantum/bpq" target="_blank">here</a><br><br>
+</p>
 
-How to start full node with Docker (<a href="https://docs.docker.com/install/" target="_blank">install Docker</a>) in few clicks:<br><br> 
+<h3 id="docker"><u>Full node setup with Docker</u></h3>
+<p>
+  How to start full node with Docker (<a href="https://docs.docker.com/install/" target="_blank">install Docker</a>) in few clicks:<br><br>
 
 <ol>
 <li>Clone github repo
@@ -50,21 +109,27 @@ Once you wish to srop container run:<br><br>
 
 Docker file may be found in this <a href="https://github.com/bitcoinpostquantum/docker-bpq" target="_blank">repo</a><br><br>
 
+</p>
 
+<h3 id="miner"><u>Miner setup</u></h3>
+<p>
+  Miner source code and run instructions <a href="https://github.com/bitcoinpostquantum/nheqminer" target="_blank">here</a><br><br>
+</p>
 
-<h3>Electrum Light wallet</h3> 
+<h3 id="pool"><u>Connect miner to the pool</u></h3>
+<p>
+</p>
 
-Get Electrum wallet source code & run instructions <a href="https://github.com/bitcoinpostquantum/electrum-bpq" target="_blank">here</a><br><br>
+<h3 id="ElectrumX"><u>ElectrumX server setup</u></h3>
+<p>
+  ElectrumX server source code <a href="https://github.com/bitcoinpostquantum/electrumx-bpq" target="_blank">repo</a><br><br>
+</p>
 
-ElectrumX server source code <a href="https://github.com/bitcoinpostquantum/electrumx-bpq" target="_blank">repo</a><br><br>
-
-<h3>Mining</h3>
-
-Miner source code and run instructions <a href="https://github.com/bitcoinpostquantum/nheqminer" target="_blank">here</a><br><br>
-
-<h3>BPQ Crypto lib</h3>
-
+<h3 id="bpqcrypto"><u>BPQ Crypto lib for developers</u></h3>
+<p>
 bpqcrypto lib source code is <a href="https://github.com/bitcoinpostquantum/bpqcrypto" target="_blank">here</a><br><br>
+</p>
+
 
 </body>
     

@@ -9,23 +9,22 @@
 
 <h1>Bitcoin Post-Quantum Guidelines</h1>
 
-<p>This guidelines is work in progress. <br>
-Pls, participate by creating issues in related <a href="https://github.com/bitcoinpq/bitcoinpq.github.io" target="_blank">GitHub repo</a> and submit pull requests - it'll be greatly appreciated! </p>
+<p>This document is in progress.<br>
+You can participate by creating issues in related <a href="https://github.com/bitcoinpq/bitcoinpq.github.io" target="_blank">GitHub repo</a> and submit pull requests - it'll be greatly appreciated! </p>
 
 <h2>Contents</h2>
 <ol>
-  <li><a href="#differences">BPQ key differences</a></li>
-  <li><a href="#wallet">Light wallet setup</a></li>
-  <li><a href="#airdrop">Claim your BPQ - get same amount of BPQ as you have in Bitcoin network (airdrop)</a></li>
+  <li><a href="#differences">Key differences from Bitcoin</a></li>
+  <li><a href="#electrumpq">ElectrumPQ light wallet setup</a></li>
+  <li><a href="#protect">Protect your forked balance from a quantum attack</a></li>
+  <li><a href="#miner">How to mine</a></li>
   <li><a href="#node">Full node setup</a></li>
   <li><a href="#docker">Full node setup with Docker</a></li>
-  <li><a href="#miner">Miner setup</a></li>
-  <li><a href="#pool">Connect miner to the pool</a></li>
   <li><a href="#ElectrumX">ElectrumX server setup</a></li>
   <li><a href="#bpqcrypto">BPQ Crypto lib for developers</a></li>
 </ol>
 
-<h3 id="differences"><u>BPQ key differences</u></h3>
+<h3 id="differences"><u>Key differences from Bitcoin</u></h3>
 <p>Bitcoin Post-Quantum is a bit different than Bitcoin.</P>
 <ul>
   <li><i>Single address</i>
@@ -33,42 +32,147 @@ Pls, participate by creating issues in related <a href="https://github.com/bitco
       Instead of multiple addresses, the best practice is to reuse a single address.
     </p>
     <p>
-      So in most cases change going to be returned to the same address you issued the transaction from.
-    </p>
-    <p>
-      However you are able to provide different change address (just any address in BPQ network - not necessary available in your wallet or yours in general)
+      In most cases change will return to the same address you have issued the transaction from. However you are able to provide any different change address.
     </p>
   </li>
   <li><i>Limited number of signatures</i>
     <p>
-      In contrast with Bitcoin the address can be used a limited number of times (from a thousand to a million, depending on the chosen height of the Merkle tree).
-    <p>
+      In contrast with Bitcoin a quantum-safe address can be used a limited number of times.
     </p>
-      Electrum wallet or BPQ QT client will warn you once you have used most of the signatures and when you have number of signatures left enough only to securely transfer the balance to the new BPQ address.
     <p>
+      Wallet software will warn you if you have used a significant amount of available signatures and when you have number of signatures left enough only to securely transfer money to a new BPQ address.
     </p>
-      When creating the address you may select between 3 key levels (10,16 and 20) for 1.000+,65.000+ and 1.000.000+ signatures respectfully.
     <p>
+      When creating a quantum-safe address you can choose between 3 types of XMSS tree:
     </p>
-      Time to generate this keys is different - from seconds to dozens of minutes and also related to computation power your computer has.      
+      <table border="1">
+        <tr><th>Name</th><th>Amount of signatures</th><th>Time of address creation</th></tr>
+        <tr><td>XMSS-10</td><td>1024</td><td>1-2 seconds</td></tr>
+        <tr><td>XMSS-16</td><td>65536</td><td>1-2 minutes</td></tr>
+        <tr><td>XMSS-20</td><td>1048576</td><td>10-20 minutes</td></tr>
+      </table>
+    <p>
+      Address type should be chosen according to the purpose of use. Thus, quickly generated addresses are more convenient for personal use. For automatic services, it is recommended to use the XMSS-20.
     </p>
   </li>
 </ul>
 
-
-<h3 id="wallet"><u>Light wallet setup</u></h3>
+<h3 id="electrumpq"><u>ElectrumPQ light wallet setup</u></h3>
 <p>
-  Get Electrum wallet source code & run instructions <a href="https://github.com/bitcoinpostquantum/electrum-bpq" target="_blank">here</a><br><br>
+  Get ElectrumPQ light wallet source code <a href="https://github.com/bitcoinpostquantum/electrum-bpq" target="_blank">here</a>
 </p>
-
-<h3 id="airdrop"><u>Claim your BPQ - get same amount of BPQ as you have in Bitcoin network (airdrop)</u></h3>
 <p>
-  <b><font color="red">Before starting, transfer your BTC balance to another address in Bitcoin network. Transaction must occur after the block #553000. Now you save to use your previous Bitcoin address private key in BPQ network.</font></b>
+  Run <code>./electrumpq</code> or <code>./electrumpq --testnet</code> for the Testnet and use wizard to create a new wallet:
+</p>
+<p>
+    <img src="img/create-step1.png" width="600px">
+</p>
+<p>
+  Choose "Standard wallet":
+</p>
+<p>
+    <img src="img/create-step2.png" width="600px">
+</p>
+<p>
+  Choose "Create a new seed":
+</p>
+<p>
+    <img src="img/create-step3.png" width="600px">
+</p>
+<p>
+  Choose a type of XMSS address:
+</p>
+<p>
+    <img src="img/create-step4.png" width="600px">
+</p>
+<p>
+  Save your 24-words seed to a safe place:
+</p>  
+<p>
+    <img src="img/create-step5.png" width="600px">
+</p>
+<p>
+  Enter your saved seed:
+</p>  
+<p>
+    <img src="img/create-step6.png" width="600px">
+</p>
+<p>
+  Choose a strong password to encrypt your wallet with symmetric encryption AES-256 (it is quantum-safe):
+</p>  
+<p>
+    <img src="img/create-step7.png" width="600px">
+</p>
+<p>
+  This is it:
+</p>  
+<p>
+    <img src="img/create-step8.png" width="1000px">
+</p>
+<p>
+    Mainnet addresses begin with "pq1", Testnet addresses begin with "tq1". Column "Left" shows how many available signatures you have. Column "Used" shows how many signatures you have already used. Colum "Reserved" shows how many unspent transactions outputs (a.k.a "Coins") you have. 
+</p>  
+    
+<h3 id="protect"><u>Protect your forked balance from a quantum attack</u></h3>
+<p>
+  <b><font color="red">
+      For the security reasons, it is strongly recommended that you transfer the money from the keys in the Bitcoin blockchain to addresses that are managed by other keys before you enter the old ECDSA keys into the wallet program.
+  </font></b>
+</p>
+<p>
+  If you have balance in Bitcoin blockchain before the block height 555000 (or 1445550 in Testnet), you have the same balance in the Bitcoin Post-Quantum blockchain.
+</p>
+<p>
+  To protect them from a quantum attack and start using them in the Bitcoin Post-Quantum blockchain, create a new wallet:
+</p>  
+<p>
+  <img src="img/protect-step1.png" width="600px">
+</p>
+<p>
+  Choose "Import Bitcoin/BPQ addresses or private keys":
+</p>
+<p>
+  <img src="img/protect-step2.png" width="600px">
+</p>
+<p>
+  Paste your private keys:
+</p>
+<p>
+  <img src="img/protect-step3.png" width="600px">
+</p>
+<p>
+  Skip encryption, as you will need this wallet just once:
+</p>
+<p>
+  <img src="img/protect-step4.png" width="600px">
+</p>
+<p>
+  Make sure your balance is present:
+</p>
+<p>
+  <img src="img/protect-step5.png" width="800px">
+</p>
+<p>
+  Send all your claimed coins to your previously created quantum-safe address (press "Max", then "Send"):
+</p>
+<p>
+  <img src="img/protect-step6.png" width="800px">
+</p>
+<p>
+  After that coins are protected in your quantum-safe address:
+</p>
+<p>
+  <img src="img/protect-step7.png" width="1000px">
+</p>
+                      
+<h3 id="miner"><u>How to mine</u></h3>
+<p>
+  Miner source code and run instructions <a href="https://github.com/bitcoinpostquantum/nheqminer" target="_blank">here</a><br><br>
 </p>
 
 <h3 id="node"><u>Full node setup</u></h3>
 <p>
-  BPQ source code may be found <a href="https://github.com/bitcoinpostquantum/bpq" target="_blank">here</a><br><br>
+  BPQ source code can be found <a href="https://github.com/bitcoinpostquantum/bpq" target="_blank">here</a><br><br>
 </p>
 
 <h3 id="docker"><u>Full node setup with Docker</u></h3>
@@ -102,22 +206,13 @@ you'll see container handle which you need to use in next command:<br><br>
 </li>
 </ol><br>
 
-Once you wish to srop container run:<br><br>
+Once you wish to stop container run:<br><br>
 
 <code>sudo docker stop ContainerHandle</code><br><br>
 
 
-Docker file may be found in this <a href="https://github.com/bitcoinpostquantum/docker-bpq" target="_blank">repo</a><br><br>
+Docker file can be found in this <a href="https://github.com/bitcoinpostquantum/docker-bpq" target="_blank">repo</a><br><br>
 
-</p>
-
-<h3 id="miner"><u>Miner setup</u></h3>
-<p>
-  Miner source code and run instructions <a href="https://github.com/bitcoinpostquantum/nheqminer" target="_blank">here</a><br><br>
-</p>
-
-<h3 id="pool"><u>Connect miner to the pool</u></h3>
-<p>
 </p>
 
 <h3 id="ElectrumX"><u>ElectrumX server setup</u></h3>

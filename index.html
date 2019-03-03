@@ -167,7 +167,30 @@ You can participate by creating issues in related <a href="https://github.com/bi
                       
 <h3 id="miner"><u>How to mine</u></h3>
 <p>
-  Miner source code and run instructions <a href="https://github.com/bitcoinpostquantum/nheqminer" target="_blank">here</a><br><br>
+  Mining is currently available for Nvidia GPU.
+  <ul>
+    <li>Nheqminer<96,3> source code: <a href="https://github.com/bitcoinpostquantum/nheqminer" target="_blank">https://github.com/bitcoinpostquantum/nheqminer</a></li>
+    <li>Nheqminer<96,3> Windows binary: <a href="https://github.com/bitcoinpostquantum/nheqminer/releases/download/v1.0/nheqminer.exe">https://github.com/bitcoinpostquantum/nheqminer/releases/download/v1.0/nheqminer.exe</a></li>
+    <li>Nheqminer<96,3> Ubuntu 18.04 binary: <a href="https://github.com/bitcoinpostquantum/nheqminer/releases/download/v1.0/nheqminer">https://github.com/bitcoinpostquantum/nheqminer/releases/download/v1.0/nheqminer</a></li>
+    <li>Ubuntu 18.04 ISO with installed Nvidia driver and nheqminer binary [8 GB]: <a href="http://pool.bitcoinpq.org/download/miner.iso">http://pool.bitcoinpq.org/download/miner.iso</a></li>
+  </ul>
+
+  <ol type="1">
+  <li>First of all create a BPQ address with sufficient amount of signatures (XMSS-16 and XMSS-20 are recommended)</li>
+
+  <li>Choose your CUDA devices from list:
+  <code>
+  ./nheqminer -ci
+  </code>
+  </li>
+  
+  <li>Start miner with chosen CUDA devices (example: 0, 1, 2, 3):
+  <code>
+  ./nheqminer -l pool.bitcoinpq.org:3857 -u <YOUR_BPQ_ADDRESS> -cd 0 1 2 3
+  </code>
+  </li>
+  
+  </ol>
 </p>
 
 <h3 id="node"><u>Full node setup</u></h3>
